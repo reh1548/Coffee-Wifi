@@ -1,2 +1,2 @@
 # Coffee-Wifi
-A DevOps project using Jenkins, Docker, and Flask.
+A DevOps CICD project using Jenkins, Docker, and Flask.
