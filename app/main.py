@@ -5,6 +5,8 @@ from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired, URL, Length
 import csv
 import os
+csv_file_path = os.path.join(os.path.dirname(__file__), 'data', 'cafe-data.csv')
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'fallback_secret_key')
@@ -43,7 +45,7 @@ def home():
 def add_cafe():
     form = CafeForm()
     if form.validate_on_submit():
-        with open('cafe-data.csv', 'a', newline='', encoding='utf-8') as csv_file:
+        with open(csv_file_path, 'a', newline='', encoding='utf-8') as csv_file:
             csv_writer = csv.writer(csv_file)
             csv_writer.writerow([form.cafe.data, form.location_url.data, form.open_time.data, form.closing_time.data, form.coffee_rating.data, form.wifi_rating.data, form.power_outlet_rating.data])
 
@@ -56,7 +58,7 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
-    with open('C:/Users/re323/projects/100_days_python/100_days_python_bootcamp-1/Day_62/cafe-data.csv', newline='', encoding='utf-8') as csv_file:
+    with open(csv_file_path, 'r', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
         for row in csv_data:
